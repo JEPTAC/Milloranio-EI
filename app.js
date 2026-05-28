@@ -66,10 +66,10 @@ const jokeMessages = [
 ];
 
 const QUESTION_BANK = [
-  {level:1,cat:"Cultura",q:"¿Qué valor es clave cuando trabajamos en equipo entre diferentes áreas?",options:["Competencia interna","Colaboración","Silencio absoluto","Improvisación"],ok:1,hint:"Piensa en lo que permite que varias áreas lleguen al mismo resultado."},
-  {level:1,cat:"Cultura",q:"¿Cuál actitud ayuda más a resolver una solicitud entre áreas?",options:["Responder con evidencia","No contestar correos","Esperar a que otro lo haga","Cambiar la versión sin avisar"],ok:0,hint:"La trazabilidad nace cuando alguien deja soporte de lo que hizo."},
-  {level:1,cat:"SST",q:"¿Quién debe verificar que los elementos de protección personal se usen correctamente en una actividad operativa?",options:["Solo el cliente","El proceso responsable y SST cuando aplique","Nadie, si hay afán","El área de cartera"],ok:1,hint:"No es un tema de una sola persona: hay corresponsabilidad operativa y de SST."},
-  {level:2,cat:"Talento Humano",q:"¿Qué proceso suele apoyar las contrataciones y el ingreso de personal?",options:["Talento Humano","Bodega","Facturación","Diseño gráfico"],ok:0,hint:"Es el área que gestiona vinculación, hojas de vida e ingreso."},
+  {level:1,cat:"Cultura",q:"¿Qué valor es clave cuando trabajamos en equipo entre diferentes procesos?",options:["Competencia interna","Colaboración","Silencio absoluto","Improvisación"],ok:1,hint:"Piensa en lo que permite que varias procesos lleguen al mismo resultado."},
+  {level:1,cat:"Cultura",q:"¿Cuál actitud ayuda más a resolver una solicitud entre procesos?",options:["Responder con evidencia","No contestar correos","Esperar a que otro lo haga","Cambiar la versión sin avisar"],ok:0,hint:"La trazabilidad nace cuando alguien deja soporte de lo que hizo."},
+  {level:1,cat:"SST",q:"¿Quién debe verificar que los elementos de protección personal se usen correctamente en una actividad operativa?",options:["Solo el cliente","El proceso responsable y SST cuando aplique","Nadie, si hay afán","El proceso de cartera"],ok:1,hint:"No es un tema de una sola persona: hay corresponsabilidad operativa y de SST."},
+  {level:2,cat:"Gestión Humana",q:"¿Qué proceso suele apoyar las contrataciones y el ingreso de personal?",options:["Gestión Humana","Bodega","Facturación","Diseño gráfico"],ok:0,hint:"Es el proceso que gestiona vinculación, hojas de vida e ingreso."},
   {level:2,cat:"Comunicación",q:"Olvidar responder correos puede generar retrasos en proyectos.",options:["Verdadero","Falso","Solo los lunes","Solo si el correo tiene adjunto"],ok:0,hint:"La comunicación oportuna evita esperas innecesarias."},
   {level:2,cat:"Servicio",q:"Cuando una solicitud llega incompleta, ¿qué debe hacerse primero?",options:["Pedir aclaración concreta y dejar registro","Cerrarla de inmediato","Ignorarla hasta fin de mes","Asignarla a todos al mismo tiempo"],ok:0,hint:"No se avanza sin información mínima, pero tampoco se pierde la trazabilidad."},
   {level:3,cat:"Inventarios",q:"¿Cuál es el principal objetivo de una auditoría de inventarios?",options:["Aumentar el precio de venta","Verificar exactitud y control del inventario","Contratar más personal","Cambiar los colores de la bodega"],ok:1,hint:"Una auditoría contrasta registros, existencias y controles."},
@@ -97,7 +97,7 @@ const QUESTION_BANK = [
   {level:10,cat:"Calidad",q:"Si una acción correctiva se cierra sin validar eficacia, ¿qué riesgo queda abierto?",options:["Que el problema se repita","Que el indicador sea demasiado bonito","Que el proceso tenga muchas firmas","Que el ranking pierda emoción"],ok:0,hint:"Cerrar no es suficiente; hay que verificar si funcionó."},
   {level:10,cat:"Datos",q:"¿Qué problema genera una base de datos con campos libres sin estandarización?",options:["Dificulta análisis, filtros e indicadores confiables","Aumenta exactitud automáticamente","Reduce todos los errores","Hace innecesario auditar"],ok:0,hint:"Sin estándar, los datos se vuelven difíciles de comparar."},
   {level:11,cat:"Indicadores",q:"Un KPI puede estar técnicamente calculado y aun así ser inútil cuando:",options:["No está conectado a una decisión o riesgo del proceso","Tiene fórmula matemática","Se actualiza cada mes","Tiene responsable"],ok:0,hint:"Un indicador debe servir para decidir."},
-  {level:11,cat:"Auditoría",q:"En una auditoría, un hallazgo debe formularse con:",options:["Criterio, condición, evidencia e impacto o riesgo","Opinión personal y emojis","Solo el nombre del área","Una frase muy larga sin soporte"],ok:0,hint:"El hallazgo debe ser verificable y útil para mejorar."},
+  {level:11,cat:"Auditoría",q:"En una auditoría, un hallazgo debe formularse con:",options:["Criterio, condición, evidencia e impacto o riesgo","Opinión personal y emojis","Solo el nombre del proceso","Una frase muy larga sin soporte"],ok:0,hint:"El hallazgo debe ser verificable y útil para mejorar."},
   {level:11,cat:"Inventarios",q:"Si un conteo cíclico encuentra diferencias pequeñas pero recurrentes, ¿qué conviene hacer?",options:["Analizar tendencia y ajustar controles antes de que crezca","Ignorarlas porque son pequeñas","Esperar al cierre anual","Eliminar el indicador"],ok:0,hint:"La recurrencia es una alerta aunque el valor unitario sea bajo."},
   {level:12,cat:"Gestión por procesos",q:"¿Qué error es más grave al diseñar un flujo de proceso?",options:["No definir entradas, salidas, responsables ni controles","Usar iconos sobrios","Hacerlo en una sola página","Colocar colores corporativos"],ok:0,hint:"Un flujo sin responsabilidades ni controles no sirve para gestionar."},
   {level:12,cat:"Riesgo",q:"Una matriz de riesgos pierde valor cuando:",options:["No se actualiza con eventos reales y controles efectivos","Tiene niveles de probabilidad","Incluye responsables","Muestra impacto"],ok:0,hint:"La matriz debe vivir con la operación, no quedar decorativa."},
@@ -108,14 +108,14 @@ const QUESTION_BANK = [
   {level:11,cat:"Auditoría",q:"Cuando un hallazgo se documenta sin evidencia verificable, el principal problema es que:",options:["Se convierte en una opinión difícil de sostener","Automáticamente se vuelve acción correctiva","Ya no necesita criterio de auditoría","Puede cerrarse sin análisis"],ok:0,hint:"Sin evidencia suficiente, el hallazgo pierde solidez y trazabilidad."},
   {level:12,cat:"Gestión",q:"Si un control existe en el procedimiento pero nadie demuestra su ejecución, el riesgo más real es:",options:["Que el control sea solo formal y no reduzca el riesgo real","Que el proceso sea automáticamente conforme","Que la auditoría no pueda revisarlo","Que el indicador se calcule mejor"],ok:0,hint:"Un control sin evidencia ejecutada no garantiza efectividad."},
   {level:12,cat:"Indicadores",q:"¿Qué señal muestra mejor que un indicador está mal diseñado?",options:["Siempre se ve bien, pero no cambia ninguna decisión ni control","Tiene fórmula matemática","Se revisa periódicamente","Tiene meta y responsable"],ok:0,hint:"Un indicador útil mueve decisiones, no solo decoración."},
-  {level:13,cat:"Final",q:"En una cultura madura de mejora, ¿qué debería ocurrir después de detectar un error relevante?",options:["Analizar causa, definir acción, verificar eficacia y aprender del caso","Corregir rápido y olvidar el asunto","Esperar a que otra área lo resuelva","Crear más formato aunque no controle nada"],ok:0,hint:"La madurez se nota cuando el error se transforma en aprendizaje verificable."},
-  {level:13,cat:"Final",q:"¿Qué decisión demuestra mayor pensamiento sistémico ante fallas repetidas entre áreas?",options:["Revisar flujo completo, roles, datos, tiempos y controles interdependientes","Señalar solo al último que tocó el proceso","Aumentar correos sin cambiar el flujo","Cambiar el nombre del problema"],ok:0,hint:"Lo sistémico mira la cadena completa, no solo el síntoma final."}
+  {level:13,cat:"Final",q:"En una cultura madura de mejora, ¿qué debería ocurrir después de detectar un error relevante?",options:["Analizar causa, definir acción, verificar eficacia y aprender del caso","Corregir rápido y olvidar el asunto","Esperar a que otra proceso lo resuelva","Crear más formato aunque no controle nada"],ok:0,hint:"La madurez se nota cuando el error se transforma en aprendizaje verificable."},
+  {level:13,cat:"Final",q:"¿Qué decisión demuestra mayor pensamiento sistémico ante fallas repetidas entre procesos?",options:["Revisar flujo completo, roles, datos, tiempos y controles interdependientes","Señalar solo al último que tocó el proceso","Aumentar correos sin cambiar el flujo","Cambiar el nombre del problema"],ok:0,hint:"Lo sistémico mira la cadena completa, no solo el síntoma final."}
 ];
 
 const JOKE_BANK = [
   {cat:"Pregunta trampa",q:"¿Qué sobrevive más tiempo sin dañarse en una oficina?",options:["Un casco","Un Excel financiero","Un marcador de obra","El café de la oficina"],ok:3},
   {cat:"Pregunta imposible",q:"Si un auditor mira una carpeta durante 8 segundos y suspira, ¿cuántas observaciones trae mentalmente?",options:["3","7","Depende del café","Todas las anteriores"],ok:3},
-  {cat:"Electro-misterio",q:"¿Dónde desaparecen los lapiceros cuando más se necesitan?",options:["Bodega","Talento Humano","Otra dimensión documental","Compras"],ok:2},
+  {cat:"Electro-misterio",q:"¿Dónde desaparecen los lapiceros cuando más se necesitan?",options:["Bodega","Gestión Humana","Otra dimensión documental","Compras"],ok:2},
   {cat:"Pregunta de supervivencia",q:"¿Qué pesa más en cierre de mes?",options:["Una caja de cable","Un pendiente sin responsable","Un casco mojado","Un mouse inalámbrico"],ok:1},
   {cat:"Cultura pop empresarial",q:"Si el Excel se cierra sin guardar, ¿qué proceso se activa?",options:["Gestión del pánico","Auditoría interna","Conteo cíclico","SST"],ok:0},
   {cat:"Alta complejidad",q:"¿Cuántos correos hacen falta para que alguien escriba 'reitero solicitud'?",options:["1","2","3","La paciencia del remitente decide"],ok:3},
@@ -348,7 +348,7 @@ function renderLogin(){
           <div class="field">
             <label for="playerArea">Proceso</label>
             <select id="playerArea" required>
-              <option value="">Seleccionar área...</option>
+              <option value="">Seleccionar proceso...</option>
               ${AREAS.map(a=>`<option value="${safeText(a)}">${safeText(a)}</option>`).join("")}
             </select>
           </div>
@@ -365,7 +365,7 @@ function renderLogin(){
     e.preventDefault();
     const name = document.getElementById("playerName").value.trim();
     const area = document.getElementById("playerArea").value.trim();
-    if(!name || !area) return toast("Escribe nombre y área para iniciar.");
+    if(!name || !area) return toast("Escribe nombre y proceso para iniciar.");
     state.mode = "single";
     state.tournament = { id:null, teams:[], currentIndex:0, results:[] };
     state.player = {name, area};
@@ -707,11 +707,11 @@ async function loadRanking(){
 
 function rankingHtml(){
   const title = state.rankingFilter ? `Ranking · ${safeText(state.rankingFilter)}` : "Ranking general";
-  const filter = `<div class="ranking-filter-row"><label>Filtrar por área</label><select class="ranking-filter" onchange="window.gameMillionaire.setRankingFilter(this.value)"><option value="">Todas las áreas</option>${AREAS.map(a=>`<option value="${safeText(a)}" ${state.rankingFilter===a?"selected":""}>${safeText(a)}</option>`).join("")}</select></div>`;
+  const filter = `<div class="ranking-filter-row"><label>Filtrar por proceso</label><select class="ranking-filter" onchange="window.gameMillionaire.setRankingFilter(this.value)"><option value="">Todos los procesos</option>${AREAS.map(a=>`<option value="${safeText(a)}" ${state.rankingFilter===a?"selected":""}>${safeText(a)}</option>`).join("")}</select></div>`;
   const rows = state.ranking.length ? state.ranking.map((r,i)=>`
     <div class="rank-row">
       <div class="rank-pos">${i+1}</div>
-      <div><div class="rank-name">${safeText(r.player||"Participante")}</div><div class="rank-area">${safeText(r.area||"Área")}</div></div>
+      <div><div class="rank-name">${safeText(r.player||"Participante")}</div><div class="rank-area">${safeText(r.area||"Proceso")}</div></div>
       <div class="rank-score">${fmt(r.points)} pts<br><span style="font-size:11px;color:var(--muted)">$${fmt(r.money||0)}</span></div>
     </div>`).join("") : `<p>Aún no hay puntajes para este filtro. El primer valiente se lleva la gloria.</p>`;
   return `<div class="ranking-mini" style="padding:0"><div class="panel-title"><h3>${title}</h3><span class="pill gold">Top 10</span></div>${filter}${rows}</div>`;
@@ -756,7 +756,7 @@ function showTournamentSetup(){
             <div class="team-setup-row">
               <strong>${i+1}</strong>
               <input maxlength="40" name="teamName${i}" placeholder="Equipo ${i+1}${i<2?' obligatorio':''}" ${i<2?'required':''}>
-              <select name="teamArea${i}"><option value="">Área...</option>${areaOptions()}</select>
+              <select name="teamArea${i}"><option value="">Proceso...</option>${areaOptions()}</select>
             </div>`).join("")}
         </div>
         <div class="modal-actions">
@@ -772,7 +772,7 @@ function showTournamentSetup(){
     const teams=[];
     for(let i=0;i<8;i++){
       const name = e.target[`teamName${i}`].value.trim();
-      const area = e.target[`teamArea${i}`].value.trim() || "Otra área";
+      const area = e.target[`teamArea${i}`].value.trim() || "Otro proceso";
       if(name) teams.push({name, area});
     }
     if(teams.length < 2) return toast("Registra mínimo 2 equipos para iniciar el torneo.");
