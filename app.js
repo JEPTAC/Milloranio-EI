@@ -41,7 +41,7 @@ const GIFS = {
 const MONEY = [100,200,500,1000,2000,5000,10000,20000,50000,100000,250000,500000,1000000];
 const SAFE_INDEXES = [3,8];
 const LETTERS = ["A","B","C","D"];
-const AREAS = ["Calidad y mejora continua","Logística / Bodega","Talento Humano","Compras","Comercial","Facturación / Cartera","SST","Gerencia","Operaciones / Proyectos","Otra área"];
+const AREAS = ["Atención al Usuario","Iluminación","Logística Ap.","Medio Ambiente","Operaciones","SIG","Activos Fijos","Auditoría","Calidad","Contabilidad","SAGRILAFT y PTEE","Finanzas","Gestión Documental","Gestión Humana","Jurídico","Mantenimiento e Infraestructura","Nómina","Servicios Generales","Sistemas","SST","Mensajería","Cierre","Ejecución","Planeación","Cartera","Compras","Logística","Ventas"];
 
 const funnyCorrect = [
   "Correcto. Esa respuesta pasó con evidencia, trazabilidad y buena energía.",
@@ -321,7 +321,7 @@ function renderLogin(){
             </div>
             <div class="eyebrow">Electroingeniería S.A.S.</div>
             <h1>Reto Millonario <span>Buena Energía</span></h1>
-            <p class="lead">Aquí venimos a descubrir quién sí se sabe el proceso, quién adivina con demasiada fe y quién termina aprendiendo cultura, calidad, inventarios, auditoría, SST y mejora continua entre risas, puntos y buena energía.</p>
+            <p class="lead">Hoy vamos a descubrir quién sabe de verdad, quién responde con seguridad sospechosa y quién está a una pregunta de pedir ayuda con toda la dignidad del mundo.</p>
             <div class="hero-metrics">
               <div class="metric"><strong>13</strong><span>niveles de premio</span></div>
               <div class="metric"><strong>5</strong><span>comodines especiales</span></div>
@@ -340,13 +340,13 @@ function renderLogin(){
         <form class="form" id="loginForm">
           <span class="pill ${state.firebaseReady ? "ok" : "warn"}">${state.firebaseReady ? "☁️ Firestore conectado" : "💾 Modo local si Firestore bloquea reglas"}</span>
           <h2>Registrar participante</h2>
-          <p>El nombre y el área se guardan únicamente para el ranking del juego.</p>
+          <p>El nombre y el proceso se guardan únicamente para el ranking del juego.</p>
           <div class="field">
             <label for="playerName">Nombre del participante o equipo</label>
             <input id="playerName" maxlength="40" autocomplete="off" placeholder="Ej: Dream Team Logística" required>
           </div>
           <div class="field">
-            <label for="playerArea">Proceso / área</label>
+            <label for="playerArea">Proceso</label>
             <select id="playerArea" required>
               <option value="">Seleccionar área...</option>
               ${AREAS.map(a=>`<option value="${safeText(a)}">${safeText(a)}</option>`).join("")}
@@ -394,7 +394,7 @@ function renderGame(){
           <img class="logo-small" src="${ASSETS.logo}" alt="Electroingeniería" onerror="this.style.display='none'">
           <div>
             <strong>${safeText(state.player.name)}</strong><br>
-            <span style="color:var(--muted);font-size:12px">${safeText(state.player.area)}</span>
+            <span style="color:var(--muted);font-size:12px">Proceso: ${safeText(state.player.area)}</span>
           </div>
         </div>
         <div class="actions">
