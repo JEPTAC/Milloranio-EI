@@ -156,6 +156,7 @@ const state = {
   rankingAll:[],
   rankingFilter:"",
   usedJokes:new Set(),
+  gifIndexes:{intro:0,correct:0,wrong:0,joke:0,win:0,neutral:0},
   questionToken:0,
   lastAnswerAt:0,
   lastLifelineAt:0,
@@ -827,7 +828,7 @@ function showTournamentTable(final=false){
         {label:"Continuar torneo",class:"primary",action:()=>{ closeModal(); nextTournamentTurn(); }},
         {label:"Cerrar",class:"ghost",action:closeModal}
       ];
-  modal(title, `${text}${tournamentHtml()}`, ASSETS.done, buttons, true);
+  modal(title, `${text}${tournamentHtml()}`, nextGif("win"), buttons, true);
 }
 
 function modal(title, html, img, buttons=[], wide=false){

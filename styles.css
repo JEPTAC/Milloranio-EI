@@ -769,3 +769,60 @@ h1 span:after{
   .team-setup-row select{grid-column:2/3}
   .tournament-modal{padding:20px}
 }
+
+
+/* =========================================================
+   Visual refinement v4 · mejor proporción modal y 2 GIFs inicio
+   ========================================================= */
+.hero-stage.hero-stage-two{
+  grid-template-columns:repeat(2,minmax(180px,1fr));
+  max-width:640px;
+  gap:18px;
+}
+.intro-card{
+  min-height:210px;
+  padding:12px;
+}
+.hero-sticker-large{
+  max-height:220px;
+  width:100%;
+  object-fit:cover;
+  border-radius:18px;
+}
+.modal{
+  width:min(900px,calc(100% - 24px));
+}
+.modal-body{
+  grid-template-columns:170px minmax(0,1fr);
+  align-items:start;
+  gap:20px;
+}
+.modal img{
+  width:170px;
+  min-height:170px;
+  max-height:190px;
+  aspect-ratio:1 / 1;
+  object-fit:cover;
+  align-self:start;
+}
+.modal h2{
+  margin-bottom:10px;
+}
+.ranking-mini{
+  padding:16px;
+}
+.rank-row{
+  padding:12px 0;
+}
+@media (max-width: 980px){
+  .hero-stage.hero-stage-two{grid-template-columns:1fr 1fr;max-width:none;}
+  .modal-body{grid-template-columns:140px minmax(0,1fr);}
+  .modal img{width:140px;min-height:140px;max-height:150px;}
+}
+@media (max-width: 720px){
+  .hero-stage.hero-stage-two{grid-template-columns:1fr;}
+  .intro-card{min-height:180px;}
+  .hero-sticker-large{max-height:190px;}
+  .modal-body{grid-template-columns:1fr;}
+  .modal img{width:100%;max-width:180px;min-height:160px;margin:0 auto;}
+}
