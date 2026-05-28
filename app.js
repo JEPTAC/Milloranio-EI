@@ -15,15 +15,15 @@ const firebaseConfig = {
 const ASSETS = {
   logo: "assets/logo_dream_team_calidad.png",
   logoCalidad: "assets/logo_dream_team_calidad.png",
-  loginDance: "assets/gif_dance_class.gif",
-  correct: "assets/gif_dance_class.gif",
+  loginDance: "assets/gif_energy_pill.gif",
+  correct: "assets/gif_dance_shock.gif",
   sent: "assets/gif_penguin_oops.gif",
-  rabbids: "assets/gif_rabbids_win.gif",
+  rabbids: "assets/gif_penguin_oops.gif",
   working: "assets/gif_support_bunny.gif",
   document: "assets/gif_processing_cat.gif",
-  missing: "assets/gif_sad_pablo.gif",
+  missing: "assets/gif_penguin_oops.gif",
   extend: "assets/gif_loading_gorilla.gif",
-  done: "assets/gif_rabbids_win.gif",
+  done: "assets/gif_energy_pill.gif",
   laugh: "assets/gif_dance_shock.gif",
   scream: "assets/gif_scream_help.gif",
   energy: "assets/gif_energy_pill.gif"
@@ -100,7 +100,12 @@ const QUESTION_BANK = [
   {level:12,cat:"Calidad",q:"¿Qué decisión es más madura ante un incumplimiento repetitivo?",options:["Rediseñar control, revisar causa raíz y medir eficacia","Enviar el mismo correo otra vez sin cambios","Cambiar el nombre del incumplimiento","Ocultarlo del tablero"],ok:0,hint:"La repetición indica que el control actual no basta."},
   {level:13,cat:"Final",q:"Si Electroingeniería quiere mejorar integralmente la gestión, ¿qué combinación tiene mayor impacto sostenible?",options:["Cultura, datos confiables, procesos controlados e indicadores útiles","Solo más formatos","Solo más reuniones","Solo exigir más rápido sin cambiar controles"],ok:0,hint:"La mejora sostenible combina cultura, método, tecnología y seguimiento."},
   {level:13,cat:"Final",q:"¿Cuál es el mayor riesgo de digitalizar un proceso mal diseñado?",options:["Automatizar el desorden y hacerlo más rápido","Eliminar todos los errores por arte de magia","Mejorar sin medir","No necesitar responsables"],ok:0,hint:"La tecnología potencia lo bueno, pero también puede acelerar lo malo."},
-  {level:13,cat:"Final",q:"Una organización aprende realmente cuando:",options:["Convierte errores en datos, decisiones y mejoras verificables","Nunca reconoce fallas","Cambia formatos cada semana","Confunde actividad con resultado"],ok:0,hint:"Aprender es cerrar el ciclo entre evidencia, decisión y mejora."}
+  {level:13,cat:"Final",q:"Una organización aprende realmente cuando:",options:["Convierte errores en datos, decisiones y mejoras verificables","Nunca reconoce fallas","Cambia formatos cada semana","Confunde actividad con resultado"],ok:0,hint:"Aprender es cerrar el ciclo entre evidencia, decisión y mejora."},
+  {level:11,cat:"Auditoría",q:"Cuando un hallazgo se documenta sin evidencia verificable, el principal problema es que:",options:["Se convierte en una opinión difícil de sostener","Automáticamente se vuelve acción correctiva","Ya no necesita criterio de auditoría","Puede cerrarse sin análisis"],ok:0,hint:"Sin evidencia suficiente, el hallazgo pierde solidez y trazabilidad."},
+  {level:12,cat:"Gestión",q:"Si un control existe en el procedimiento pero nadie demuestra su ejecución, el riesgo más real es:",options:["Que el control sea solo formal y no reduzca el riesgo real","Que el proceso sea automáticamente conforme","Que la auditoría no pueda revisarlo","Que el indicador se calcule mejor"],ok:0,hint:"Un control sin evidencia ejecutada no garantiza efectividad."},
+  {level:12,cat:"Indicadores",q:"¿Qué señal muestra mejor que un indicador está mal diseñado?",options:["Siempre se ve bien, pero no cambia ninguna decisión ni control","Tiene fórmula matemática","Se revisa periódicamente","Tiene meta y responsable"],ok:0,hint:"Un indicador útil mueve decisiones, no solo decoración."},
+  {level:13,cat:"Final",q:"En una cultura madura de mejora, ¿qué debería ocurrir después de detectar un error relevante?",options:["Analizar causa, definir acción, verificar eficacia y aprender del caso","Corregir rápido y olvidar el asunto","Esperar a que otra área lo resuelva","Crear más formato aunque no controle nada"],ok:0,hint:"La madurez se nota cuando el error se transforma en aprendizaje verificable."},
+  {level:13,cat:"Final",q:"¿Qué decisión demuestra mayor pensamiento sistémico ante fallas repetidas entre áreas?",options:["Revisar flujo completo, roles, datos, tiempos y controles interdependientes","Señalar solo al último que tocó el proceso","Aumentar correos sin cambiar el flujo","Cambiar el nombre del problema"],ok:0,hint:"Lo sistémico mira la cadena completa, no solo el síntoma final."}
 ];
 
 const JOKE_BANK = [
@@ -111,7 +116,15 @@ const JOKE_BANK = [
   {cat:"Cultura pop empresarial",q:"Si el Excel se cierra sin guardar, ¿qué proceso se activa?",options:["Gestión del pánico","Auditoría interna","Conteo cíclico","SST"],ok:0},
   {cat:"Alta complejidad",q:"¿Cuántos correos hacen falta para que alguien escriba 'reitero solicitud'?",options:["1","2","3","La paciencia del remitente decide"],ok:3},
   {cat:"Broma técnica",q:"¿Cuál es el indicador más sensible de la empresa?",options:["Precisión de inventario","Tiempo de respuesta","Nivel de café disponible","Rotación de personal"],ok:2},
-  {cat:"Pregunta imposible",q:"Si una reunión empieza 10 minutos tarde pero todos dicen 'arranquemos rápido', ¿cuánto dura?",options:["15 minutos","30 minutos","1 hora","Hasta que alguien diga 'último punto'"],ok:3}
+  {cat:"Pregunta imposible",q:"Si una reunión empieza 10 minutos tarde pero todos dicen 'arranquemos rápido', ¿cuánto dura?",options:["15 minutos","30 minutos","1 hora","Hasta que alguien diga 'último punto'"],ok:3},
+  {cat:"Pregunta sin contexto",q:"¿Cuál es la unidad oficial para medir el drama cuando alguien no adjunta el soporte?",options:["Decibeles","Correos por minuto","Pantallazos por segundo","No está aprobada por metrología"],ok:3},
+  {cat:"Auditoría paranormal",q:"Si un documento desaparece justo antes de la revisión, ¿qué fenómeno ocurrió?",options:["Pérdida controlada","Migración espontánea de archivos","Actividad paranormal de oficina","Gestión documental cuántica"],ok:3},
+  {cat:"Broma de proceso",q:"¿Qué aparece primero en un cierre complicado?",options:["La solución","Un café","La frase 'ya casi'","La trazabilidad perfecta"],ok:2},
+  {cat:"Ciencia aplicada",q:"¿Qué tan rápido corre alguien cuando escucha 'auditoría sorpresa'?",options:["Más rápido que el Wi‑Fi","Depende del pendiente","A velocidad procedimiento","Lo suficiente para buscar evidencias"],ok:3},
+  {cat:"Pregunta imposible",q:"¿Cuál es el principal depredador natural de un lapicero nuevo?",options:["La recepción","Las reuniones","El compañero que 'lo devuelve ahora'","La gravedad"],ok:2},
+  {cat:"Humor corporativo",q:"¿Qué significa realmente 'te lo envío en cinco minutos'?",options:["Cinco minutos reales","Una unidad simbólica del universo","Una promesa auditable","Depende del tráfico de correos"],ok:1},
+  {cat:"Electro‑leyenda",q:"Si una tarea no tiene responsable, ¿quién la hace?",options:["Todos","Nadie","El espíritu de mejora continua","El más optimista"],ok:1},
+  {cat:"Alta complejidad",q:"¿Cuántas veces se puede decir 'ya casi' antes de que sea un indicador?",options:["3","7","12","Las suficientes para abrir una acción correctiva"],ok:3}
 ];
 
 const state = {
@@ -136,6 +149,14 @@ const state = {
   timeLeft:90,
   timer:null,
   ranking:[],
+  rankingAll:[],
+  rankingFilter:"",
+  usedJokes:new Set(),
+  questionToken:0,
+  lastAnswerAt:0,
+  lastLifelineAt:0,
+  mode:"single",
+  tournament:{ id:null, teams:[], currentIndex:0, results:[] },
   lastSaved:false
 };
 
@@ -144,7 +165,13 @@ const appEl = document.getElementById("app");
 function fmt(n){ return new Intl.NumberFormat("es-CO").format(Number(n)||0); }
 function sample(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
+function prepareQuestion(question){
+  const entries = question.options.map((opt,i)=>({opt,isOk:i===question.ok}));
+  const mixed = shuffle(entries);
+  return {...question, options:mixed.map(x=>x.opt), ok:mixed.findIndex(x=>x.isOk)};
+}
 function currentQuestion(){ return state.currentJoke || state.selected[state.current]; }
+function currentTeam(){ return state.tournament.teams[state.tournament.currentIndex] || null; }
 function computePoints(){ return state.money + state.coins; }
 function safeMoney(){
   let safe = 0;
@@ -204,6 +231,18 @@ function scoreBurst(text){
   document.body.appendChild(el);
   setTimeout(()=>el.remove(),1500);
 }
+function disableAnswerControls(){
+  document.querySelectorAll(".option, .lifeline").forEach(el=>{ el.disabled = true; });
+}
+function enableRemainingAnswerControls(excludedIndex=null){
+  document.querySelectorAll(".option").forEach((el,idx)=>{
+    if(idx !== excludedIndex && !state.hiddenOptions.has(idx)) el.disabled = false;
+  });
+  document.querySelectorAll(".lifeline").forEach(el=>{ el.disabled = true; });
+}
+function makeTournamentId(){
+  return `torneo-${Date.now()}-${Math.random().toString(16).slice(2,8)}`;
+}
 
 function addClickPulse(){
   document.addEventListener("pointermove", e=>{
@@ -244,7 +283,7 @@ function buildQuestionSet(){
   const chosen=[];
   for(let level=1; level<=13; level++){
     const pool = QUESTION_BANK.filter(q=>q.level===level);
-    chosen.push(sample(pool));
+    chosen.push(prepareQuestion(sample(pool)));
   }
   state.selected = chosen;
 }
@@ -300,6 +339,7 @@ function renderLogin(){
           <div class="actions vertical">
             <button class="btn primary" type="submit">Iniciar reto</button>
             <button class="btn ghost" type="button" id="rankingBtn">🏆 Ver ranking</button>
+            <button class="btn tournament-btn" type="button" id="tournamentBtn">🎬 Modo torneo por equipos</button>
           </div>
           <div class="footer-note">Puntos seguros: $1.000 y $50.000. Las preguntas trampa no suman ni descuentan.</div>
         </form>
@@ -310,22 +350,26 @@ function renderLogin(){
     const name = document.getElementById("playerName").value.trim();
     const area = document.getElementById("playerArea").value.trim();
     if(!name || !area) return toast("Escribe nombre y área para iniciar.");
+    state.mode = "single";
+    state.tournament = { id:null, teams:[], currentIndex:0, results:[] };
     state.player = {name, area};
     startGame();
   });
   document.getElementById("rankingBtn").addEventListener("click", async()=>{ await loadRanking(); showRanking(); });
+  document.getElementById("tournamentBtn").addEventListener("click", showTournamentSetup);
 }
 
 function startGame(){
   buildQuestionSet();
   state.current=0; state.money=0; state.points=0; state.coins=0; state.correct=0; state.wrong=0; state.jokes=0;
-  state.used=new Set(); state.doubleActive=false; state.doubleConsumed=false; state.currentJoke=null; state.hiddenOptions=new Set(); state.locked=false; state.lastSaved=false;
+  state.used=new Set(); state.doubleActive=false; state.doubleConsumed=false; state.currentJoke=null; state.hiddenOptions=new Set(); state.locked=false; state.usedJokes=new Set(); state.lastAnswerAt=0; state.lastLifelineAt=0; state.lastSaved=false;
   renderGame();
 }
 
 function renderGame(){
   clearInterval(state.timer);
   const q = currentQuestion();
+  const token = ++state.questionToken;
   state.points = computePoints();
   appEl.innerHTML = `
     <section class="shell screen-enter">
@@ -339,6 +383,7 @@ function renderGame(){
         </div>
         <div class="actions">
           <span class="pill ${state.firebaseReady ? "ok" : "warn"}">${state.firebaseReady ? "☁️ Ranking Firestore" : "💾 Ranking local"}</span>
+          ${state.mode === "tournament" ? `<span class="pill gold">🎬 Equipo ${state.tournament.currentIndex+1}/${state.tournament.teams.length}</span>` : ""}
           <button class="btn ghost small" onclick="window.gameMillionaire.confirmExit()">Salir</button>
         </div>
       </div>
@@ -362,7 +407,7 @@ function renderGame(){
             <div class="timer-wrap"><div id="timerBar" class="timer-bar"></div></div>
             <div class="options">
               ${q.options.map((op,i)=>`
-                <button id="option-${i}" class="option ${state.hiddenOptions.has(i)?"hidden-option":""}" style="animation-delay:${i*95}ms" onclick="window.gameMillionaire.answer(${i})" ${state.hiddenOptions.has(i)?"disabled":""}>
+                <button id="option-${i}" class="option ${state.hiddenOptions.has(i)?"hidden-option":""}" style="animation-delay:${i*95}ms" onclick="window.gameMillionaire.answer(${i}, ${token})" ${state.hiddenOptions.has(i)?"disabled":""}>
                   <span class="letter">${LETTERS[i]}</span><span>${safeText(op)}</span>
                 </button>`).join("")}
             </div>
@@ -394,7 +439,7 @@ function renderGame(){
 }
 
 function startTimer(){
-  state.timeLeft = state.currentJoke ? 45 : Math.max(35, 95 - state.current*4);
+  state.timeLeft = state.currentJoke ? 32 : Math.max(20, 75 - state.current*4);
   const total = state.timeLeft;
   const timerText = document.getElementById("timerText");
   const timerBar = document.getElementById("timerBar");
@@ -417,11 +462,15 @@ function timeoutQuestion(){
   finishGame(false, "Se acabó el tiempo", "La solicitud quedó vencida. El reloj no perdona, pero el ranking sí guarda la valentía.");
 }
 
-function answer(index){
-  if(state.locked) return;
+function answer(index, token){
+  if(token !== state.questionToken) return;
+  const now = Date.now();
+  if(state.locked || now - state.lastAnswerAt < 650) return;
+  state.lastAnswerAt = now;
   const q = currentQuestion();
-  if(state.currentJoke){ resolveJoke(index); return; }
+  if(state.currentJoke){ disableAnswerControls(); resolveJoke(index); return; }
   state.locked = true;
+  disableAnswerControls();
   clearInterval(state.timer);
   const correct = index === q.ok;
   const btn = document.getElementById(`option-${index}`);
@@ -449,15 +498,17 @@ function answer(index){
     playFx("wrong");
     flashScreen("wrong");
     if(btn) btn.classList.add("wrong");
-    if(okBtn) okBtn.classList.add("correct");
     if(state.doubleActive && !state.doubleConsumed){
-      state.locked=false;
       state.doubleConsumed=true;
       state.doubleActive=false;
-      if(btn) btn.disabled = true;
-      toast("Doble oportunidad activada: puedes intentar una vez más.");
+      toast("Doble oportunidad activada: esa no era, pero todavía puedes salvar la ronda.");
+      setTimeout(()=>{
+        state.locked=false;
+        enableRemainingAnswerControls(index);
+      }, 520);
       return;
     }
+    if(okBtn) okBtn.classList.add("correct");
     state.wrong++;
     const guaranteed = safeMoney();
     state.money = guaranteed;
@@ -482,7 +533,17 @@ function nextQuestion(){
 }
 
 function launchJokeQuestion(){
-  state.currentJoke = sample(JOKE_BANK);
+  const available = JOKE_BANK.map((q,i)=>({q,i})).filter(item=>!state.usedJokes.has(item.i));
+  if(!available.length){
+    state.currentJoke = null;
+    state.hiddenOptions=new Set();
+    state.locked=false;
+    renderGame();
+    return;
+  }
+  const picked = sample(available);
+  state.usedJokes.add(picked.i);
+  state.currentJoke = prepareQuestion(picked.q);
   state.hiddenOptions=new Set();
   state.locked=false;
   renderGame();
@@ -501,7 +562,9 @@ function resolveJoke(index){
 }
 
 function useLifeline(type){
-  if(state.used.has(type) || state.currentJoke || state.locked) return;
+  const now = Date.now();
+  if(state.used.has(type) || state.currentJoke || state.locked || now - state.lastLifelineAt < 450) return;
+  state.lastLifelineAt = now;
   const q = currentQuestion();
   state.used.add(type);
   if(type === "fifty"){
@@ -520,7 +583,7 @@ function useLifeline(type){
   }
   if(type === "switch"){
     const pool = QUESTION_BANK.filter(item=>item.level===state.current+1 && item.q!==q.q);
-    if(pool.length){ state.selected[state.current] = sample(pool); state.hiddenOptions = new Set(); toast("Pregunta cambiada por consulta al proceso."); renderGame(); }
+    if(pool.length){ state.selected[state.current] = prepareQuestion(sample(pool)); state.hiddenOptions = new Set(); toast("Pregunta cambiada por consulta al proceso."); renderGame(); }
     else toast("No hay otra pregunta disponible para este nivel.");
   }
   if(type === "double"){
@@ -548,10 +611,24 @@ async function finishGame(won, title, msg){
   state.points=computePoints();
   await saveScore();
   const img = won ? ASSETS.done : ASSETS.missing;
-  modal(title, `<p>${msg}</p><p><strong>Puntos finales:</strong> ${fmt(state.points)} · <strong>Monedas:</strong> ${fmt(state.coins)}</p>${rankingHtml()}`, img, [
-    {label:"Jugar otra vez",class:"primary",action:()=>{ closeModal(); startGame(); }},
-    {label:"Volver al inicio",class:"ghost",action:()=>{ closeModal(); renderLogin(); }}
-  ], true);
+  const tournamentBlock = state.mode === "tournament" ? tournamentHtml() : "";
+  const buttons = state.mode === "tournament"
+    ? (
+      state.tournament.currentIndex < state.tournament.teams.length - 1
+        ? [
+            {label:"Siguiente equipo",class:"primary",action:()=>{ closeModal(); nextTournamentTurn(); }},
+            {label:"Ver tabla del torneo",class:"ghost",action:()=>{ closeModal(); showTournamentTable(); }}
+          ]
+        : [
+            {label:"Ver campeón",class:"primary",action:()=>{ closeModal(); showTournamentTable(true); }},
+            {label:"Nuevo torneo",class:"ghost",action:()=>{ closeModal(); showTournamentSetup(); }}
+          ]
+    )
+    : [
+        {label:"Jugar otra vez",class:"primary",action:()=>{ closeModal(); startGame(); }},
+        {label:"Volver al inicio",class:"ghost",action:()=>{ closeModal(); renderLogin(); }}
+      ];
+  modal(title, `<p>${msg}</p><p><strong>Puntos finales:</strong> ${fmt(state.points)} · <strong>Monedas:</strong> ${fmt(state.coins)}</p>${tournamentBlock}${rankingHtml()}`, img, buttons, true);
 }
 
 async function saveScore(){
@@ -570,6 +647,15 @@ async function saveScore(){
     jokes:state.jokes,
     lifelinesUsed:[...state.used]
   };
+  if(state.mode === "tournament"){
+    state.tournament.results[state.tournament.currentIndex] = {...record, teamOrder:state.tournament.currentIndex+1};
+    localStorage.setItem("electro_millonario_tournament_last", JSON.stringify({
+      id:state.tournament.id,
+      teams:state.tournament.teams,
+      results:state.tournament.results,
+      updatedAt:new Date().toISOString()
+    }));
+  }
   const local = JSON.parse(localStorage.getItem("electro_millonario_rankings") || "[]");
   local.push({...record, createdAtLocal:new Date().toISOString()});
   localStorage.setItem("electro_millonario_rankings", JSON.stringify(local.slice(-120)));
@@ -588,44 +674,146 @@ async function loadRanking(){
   let list=[];
   if(state.firebaseReady && state.db){
     try{
-      const q = query(collection(state.db,"rankings"), orderBy("points","desc"), limit(30));
+      const q = query(collection(state.db,"rankings"), orderBy("points","desc"), limit(200));
       const snap = await getDocs(q);
-      list = snap.docs.map(d=>d.data()).sort((a,b)=>(b.points-a.points)||(b.coins-a.coins)).slice(0,10);
+      list = snap.docs.map(d=>d.data()).sort((a,b)=>(b.points-a.points)||(b.coins-a.coins));
     }catch(err){ console.warn("No se pudo leer ranking Firestore.", err); }
   }
   if(!list.length){
     list = JSON.parse(localStorage.getItem("electro_millonario_rankings") || "[]")
-      .sort((a,b)=>(b.points-a.points)||(b.coins-a.coins)).slice(0,10);
+      .sort((a,b)=>(b.points-a.points)||(b.coins-a.coins));
   }
-  state.ranking=list;
-  return list;
+  state.rankingAll=list;
+  const filtered = state.rankingFilter ? list.filter(r => (r.area || "") === state.rankingFilter) : list;
+  state.ranking=filtered.slice(0,10);
+  return state.ranking;
 }
 
 function rankingHtml(){
+  const title = state.rankingFilter ? `Ranking · ${safeText(state.rankingFilter)}` : "Ranking general";
+  const filter = `<div class="ranking-filter-row"><label>Filtrar por área</label><select class="ranking-filter" onchange="window.gameMillionaire.setRankingFilter(this.value)"><option value="">Todas las áreas</option>${AREAS.map(a=>`<option value="${safeText(a)}" ${state.rankingFilter===a?"selected":""}>${safeText(a)}</option>`).join("")}</select></div>`;
   const rows = state.ranking.length ? state.ranking.map((r,i)=>`
     <div class="rank-row">
       <div class="rank-pos">${i+1}</div>
       <div><div class="rank-name">${safeText(r.player||"Participante")}</div><div class="rank-area">${safeText(r.area||"Área")}</div></div>
       <div class="rank-score">${fmt(r.points)} pts<br><span style="font-size:11px;color:var(--muted)">$${fmt(r.money||0)}</span></div>
-    </div>`).join("") : `<p>Aún no hay ranking. El primer valiente se lleva la gloria.</p>`;
-  return `<div class="ranking-mini" style="padding:0"><div class="panel-title"><h3>Ranking general</h3><span class="pill gold">Top 10</span></div>${rows}</div>`;
+    </div>`).join("") : `<p>Aún no hay puntajes para este filtro. El primer valiente se lleva la gloria.</p>`;
+  return `<div class="ranking-mini" style="padding:0"><div class="panel-title"><h3>${title}</h3><span class="pill gold">Top 10</span></div>${filter}${rows}</div>`;
 }
+
 function renderMiniRanking(){
   const el = document.getElementById("rankingMini");
   if(!el) return;
-  if(!state.ranking.length){ el.innerHTML = `<p class="footer-note">Aún no hay puntajes guardados.</p>`; return; }
-  el.innerHTML = state.ranking.slice(0,5).map((r,i)=>`
+  const miniList = (state.rankingAll.length ? state.rankingAll : state.ranking).slice(0,5);
+  if(!miniList.length){ el.innerHTML = `<p class="footer-note">Aún no hay puntajes guardados.</p>`; return; }
+  el.innerHTML = miniList.map((r,i)=>`
     <div class="rank-row">
       <div class="rank-pos">${i+1}</div>
       <div><div class="rank-name">${safeText(r.player||"Jugador")}</div><div class="rank-area">${safeText(r.area||"")}</div></div>
       <div class="rank-score">${fmt(r.points)}</div>
     </div>`).join("");
 }
+async function setRankingFilter(area){
+  state.rankingFilter = area || "";
+  await loadRanking();
+  showRanking();
+}
 async function showRanking(){
   await loadRanking();
   modal("Ranking del reto", rankingHtml(), ASSETS.done, [{label:"Cerrar",class:"primary",action:closeModal}], true);
 }
 async function loadRankingAndShow(){ await showRanking(); }
+
+function areaOptions(selected=""){
+  return AREAS.map(a=>`<option value="${safeText(a)}" ${selected===a?"selected":""}>${safeText(a)}</option>`).join("");
+}
+function showTournamentSetup(){
+  closeModal();
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+  overlay.innerHTML = `
+    <div class="modal card tournament-modal" style="width:min(980px,100%)">
+      <div class="panel-title"><div><h2>Modo torneo por equipos</h2><p>Registra de 2 a 8 equipos. Cada equipo juega su turno completo y al final queda tabla general del torneo.</p></div><span class="pill gold">🎬 por turnos</span></div>
+      <form id="tournamentForm" class="tournament-form">
+        <div class="team-setup-grid">
+          ${Array.from({length:8}).map((_,i)=>`
+            <div class="team-setup-row">
+              <strong>${i+1}</strong>
+              <input maxlength="40" name="teamName${i}" placeholder="Equipo ${i+1}${i<2?' obligatorio':''}" ${i<2?'required':''}>
+              <select name="teamArea${i}"><option value="">Área...</option>${areaOptions()}</select>
+            </div>`).join("")}
+        </div>
+        <div class="modal-actions">
+          <button class="btn primary" type="submit">Iniciar torneo</button>
+          <button class="btn ghost" type="button" id="cancelTournamentBtn">Cancelar</button>
+        </div>
+      </form>
+    </div>`;
+  document.body.appendChild(overlay);
+  document.getElementById("cancelTournamentBtn").addEventListener("click", closeModal);
+  document.getElementById("tournamentForm").addEventListener("submit", e=>{
+    e.preventDefault();
+    const teams=[];
+    for(let i=0;i<8;i++){
+      const name = e.target[`teamName${i}`].value.trim();
+      const area = e.target[`teamArea${i}`].value.trim() || "Otra área";
+      if(name) teams.push({name, area});
+    }
+    if(teams.length < 2) return toast("Registra mínimo 2 equipos para iniciar el torneo.");
+    state.mode = "tournament";
+    state.tournament = { id:makeTournamentId(), teams, currentIndex:0, results:[] };
+    state.player = { name:teams[0].name, area:teams[0].area };
+    closeModal();
+    toast(`Arranca el equipo 1: ${teams[0].name}`);
+    startGame();
+  });
+}
+function nextTournamentTurn(){
+  if(state.mode !== "tournament") return renderLogin();
+  state.tournament.currentIndex++;
+  const team = currentTeam();
+  if(!team) return showTournamentTable(true);
+  state.player = { name:team.name, area:team.area };
+  toast(`Turno del equipo ${state.tournament.currentIndex+1}: ${team.name}`);
+  startGame();
+}
+function tournamentHtml(){
+  if(state.mode !== "tournament") return "";
+  const rows = tournamentRowsHtml();
+  return `<div class="tournament-table"><div class="panel-title"><h3>Tabla del torneo</h3><span class="pill gold">${state.tournament.results.filter(Boolean).length}/${state.tournament.teams.length} equipos</span></div>${rows}</div>`;
+}
+function tournamentRowsHtml(){
+  const results = state.tournament.teams.map((team,i)=>({
+    team,
+    order:i+1,
+    result:state.tournament.results[i] || null
+  })).sort((a,b)=>((b.result?.points||-1)-(a.result?.points||-1)) || ((b.result?.coins||0)-(a.result?.coins||0)) || (a.order-b.order));
+  return results.map((row,idx)=>`
+    <div class="rank-row tournament-row ${row.result?'':'pending'}">
+      <div class="rank-pos">${row.result ? idx+1 : '—'}</div>
+      <div><div class="rank-name">${safeText(row.team.name)}</div><div class="rank-area">${safeText(row.team.area)} · Turno ${row.order}${row.result?'':' · pendiente'}</div></div>
+      <div class="rank-score">${row.result ? `${fmt(row.result.points)} pts<br><span style="font-size:11px;color:var(--muted)">$${fmt(row.result.money||0)} · 🪙 ${fmt(row.result.coins||0)}</span>` : 'Pendiente'}</div>
+    </div>`).join("");
+}
+function showTournamentTable(final=false){
+  if(state.mode !== "tournament") return showRanking();
+  const done = state.tournament.results.filter(Boolean).length;
+  const champ = [...state.tournament.results].filter(Boolean).sort((a,b)=>(b.points-a.points)||(b.coins-a.coins))[0];
+  const title = final && champ ? `Campeón: ${safeText(champ.player)}` : "Tabla general del torneo";
+  const text = final && champ
+    ? `<p>El torneo terminó. El equipo campeón dejó evidencia de conocimiento, reflejos y buena energía.</p>`
+    : `<p>Van <strong>${done}</strong> de <strong>${state.tournament.teams.length}</strong> equipos jugados.</p>`;
+  const buttons = final || done >= state.tournament.teams.length
+    ? [
+        {label:"Nuevo torneo",class:"primary",action:()=>{ closeModal(); showTournamentSetup(); }},
+        {label:"Volver al inicio",class:"ghost",action:()=>{ closeModal(); state.mode="single"; state.tournament={id:null,teams:[],currentIndex:0,results:[]}; renderLogin(); }}
+      ]
+    : [
+        {label:"Continuar torneo",class:"primary",action:()=>{ closeModal(); nextTournamentTurn(); }},
+        {label:"Cerrar",class:"ghost",action:closeModal}
+      ];
+  modal(title, `${text}${tournamentHtml()}`, ASSETS.done, buttons, true);
+}
 
 function modal(title, html, img, buttons=[], wide=false){
   closeModal();
@@ -656,11 +844,11 @@ function closeModal(){ const el=document.querySelector(".overlay"); if(el) el.re
 function confirmExit(){
   modal("Salir del reto", `<p>Si sales ahora, el puntaje de esta ronda no se guardará como partida final. Puedes volver al inicio y registrar otro participante.</p>`, ASSETS.extend, [
     {label:"Cancelar",class:"ghost",action:closeModal},
-    {label:"Salir",class:"danger",action:()=>{ closeModal(); clearInterval(state.timer); renderLogin(); }}
+    {label:"Salir",class:"danger",action:()=>{ closeModal(); clearInterval(state.timer); state.mode="single"; state.tournament={id:null,teams:[],currentIndex:0,results:[]}; renderLogin(); }}
   ]);
 }
 
-window.gameMillionaire = { answer, useLifeline, confirmExit, loadRankingAndShow };
+window.gameMillionaire = { answer, useLifeline, confirmExit, loadRankingAndShow, setRankingFilter, showTournamentSetup };
 addClickPulse();
 
 await initFirebase();
