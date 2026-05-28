@@ -13,17 +13,25 @@ const firebaseConfig = {
 };
 
 const ASSETS = {
-  logo: "assets/logo.png",
-  logoCalidad: "assets/logo_calidad.png",
-  loginDance: "assets/login_dance.gif",
-  sent: "assets/enviado_penguin.gif",
-  rabbids: "assets/enviado_rabbids.gif",
-  working: "assets/soporte_trabajando.gif",
-  document: "assets/documento_proceso.gif",
-  missing: "assets/no_encontrado.gif",
-  extend: "assets/ampliar_espera.gif",
-  done: "assets/cierre_final.gif",
-  laugh: "assets/risa.gif"
+  logo: "assets/logo_dream_team_calidad.png",
+  logoCalidad: "assets/logo_dream_team_calidad.png",
+  loginDance: "assets/gif_dance_class.gif",
+  correct: "assets/gif_dance_class.gif",
+  sent: "assets/gif_penguin_oops.gif",
+  rabbids: "assets/gif_rabbids_win.gif",
+  working: "assets/gif_support_bunny.gif",
+  document: "assets/gif_processing_cat.gif",
+  missing: "assets/gif_sad_pablo.gif",
+  extend: "assets/gif_loading_gorilla.gif",
+  done: "assets/gif_rabbids_win.gif",
+  laugh: "assets/gif_dance_shock.gif",
+  scream: "assets/gif_scream_help.gif",
+  energy: "assets/gif_energy_pill.gif"
+};
+
+const SOUNDS = {
+  correct: "assets/joder-asi-se-hace.mp3",
+  wrong: "assets/nahhh-baby.mp3"
 };
 
 const MONEY = [100,200,500,1000,2000,5000,10000,20000,50000,100000,250000,500000,1000000];
@@ -156,15 +164,63 @@ function toast(msg){
   setTimeout(()=>el.remove(), 3200);
 }
 function confetti(){
-  for(let i=0;i<42;i++){
+  for(let i=0;i<70;i++){
     const el=document.createElement("span");
     el.className="confetti";
     el.style.left=Math.random()*100+"vw";
-    el.style.animationDelay=(Math.random()*.5)+"s";
-    el.style.background=["#ffc857","#46d5ff","#58d68d","#ffffff"][i%4];
+    el.style.animationDelay=(Math.random()*.55)+"s";
+    el.style.background=["#ffc857","#46d5ff","#58d68d","#ffffff","#ff7ab6"][i%5];
+    el.style.transform=`rotate(${Math.random()*180}deg)`;
     document.body.appendChild(el);
-    setTimeout(()=>el.remove(),2400);
+    setTimeout(()=>el.remove(),2600);
   }
+}
+
+function playFx(type){
+  const src = SOUNDS[type];
+  if(!src) return;
+  try{
+    const audio = new Audio(src);
+    audio.volume = type === "correct" ? .82 : .78;
+    audio.play().catch(()=>{});
+  }catch(err){
+    console.warn("No se pudo reproducir el sonido.", err);
+  }
+}
+
+function flashScreen(type){
+  const old = document.querySelector(".screen-flash");
+  if(old) old.remove();
+  const el = document.createElement("div");
+  el.className = `screen-flash ${type}`;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),760);
+}
+
+function scoreBurst(text){
+  const el = document.createElement("div");
+  el.className = "score-burst";
+  el.textContent = text;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),1500);
+}
+
+function addClickPulse(){
+  document.addEventListener("pointermove", e=>{
+    const el = e.target.closest("button, .card, .metric");
+    if(!el) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--x", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--y", `${e.clientY - rect.top}px`);
+  });
+  document.addEventListener("click", e=>{
+    const btn = e.target.closest("button");
+    if(!btn || btn.disabled) return;
+    btn.classList.remove("click-pop");
+    void btn.offsetWidth;
+    btn.classList.add("click-pop");
+    setTimeout(()=>btn.classList.remove("click-pop"),260);
+  });
 }
 
 async function initFirebase(){
@@ -195,25 +251,36 @@ function buildQuestionSet(){
 
 function renderLogin(){
   appEl.innerHTML = `
-    <section class="login">
+    <section class="login screen-enter">
       <div class="login-card card">
         <div class="hero">
           <div class="hero-copy">
             <div class="brand-row">
-              <img class="logo" src="${ASSETS.logo}" alt="Electroingeniería S.A.S." onerror="this.style.display='none'">
-              <img class="logo-small" src="${ASSETS.logoCalidad}" alt="Calidad y mejoramiento continuo" onerror="this.style.display='none'">
+              <img class="logo" src="${ASSETS.logo}" alt="Dream Team de Calidad y Mejoramiento Continuo" onerror="this.style.display='none'">
               <span class="badge gold">Actividad de integración</span>
             </div>
             <div class="eyebrow">Electroingeniería S.A.S.</div>
             <h1>Reto Millonario <span>Buena Energía</span></h1>
-            <p class="lead">Un concurso tipo millonario para reforzar cultura, calidad, inventarios, auditoría, SST y mejora continua. Tiene comodines, ranking en Firestore, monedas, preguntas trampa y comentarios cómicos.</p>
+            <p class="lead">Aquí venimos a descubrir quién sí se sabe el proceso, quién adivina con demasiada fe y quién termina aprendiendo cultura, calidad, inventarios, auditoría, SST y mejora continua entre risas, puntos y buena energía.</p>
             <div class="hero-metrics">
               <div class="metric"><strong>13</strong><span>niveles de premio</span></div>
               <div class="metric"><strong>5</strong><span>comodines especiales</span></div>
-              <div class="metric"><strong>∞</strong><span>risas institucionales</span></div>
+              <div class="metric"><strong>∞</strong><span>momentos épicos</span></div>
+            </div>
+            <div class="hero-stage">
+              <div class="hero-gif-card">
+                <img class="hero-gif" src="${ASSETS.loginDance}" alt="Animación del juego" loading="eager" onerror="this.src='${ASSETS.energy}'">
+              </div>
+              <div class="hero-sticker-row">
+                <div class="sticker-card">
+                  <img class="hero-sticker" src="${ASSETS.energy}" alt="Buena energía" loading="eager" onerror="this.style.display='none'">
+                </div>
+                <div class="sticker-card">
+                  <img class="hero-sticker" src="${ASSETS.document}" alt="Procesando ideas" loading="eager" onerror="this.style.display='none'">
+                </div>
+              </div>
             </div>
           </div>
-          <img class="hero-gif" src="${ASSETS.loginDance}" alt="Animación del juego" onerror="this.src='${ASSETS.done}'">
         </div>
         <form class="form" id="loginForm">
           <span class="pill ${state.firebaseReady ? "ok" : "warn"}">${state.firebaseReady ? "☁️ Firestore conectado" : "💾 Modo local si Firestore bloquea reglas"}</span>
@@ -261,7 +328,7 @@ function renderGame(){
   const q = currentQuestion();
   state.points = computePoints();
   appEl.innerHTML = `
-    <section class="shell">
+    <section class="shell screen-enter">
       <div class="topbar">
         <div class="brand-row">
           <img class="logo-small" src="${ASSETS.logo}" alt="Electroingeniería" onerror="this.style.display='none'">
@@ -295,7 +362,7 @@ function renderGame(){
             <div class="timer-wrap"><div id="timerBar" class="timer-bar"></div></div>
             <div class="options">
               ${q.options.map((op,i)=>`
-                <button id="option-${i}" class="option ${state.hiddenOptions.has(i)?"hidden-option":""}" onclick="window.gameMillionaire.answer(${i})" ${state.hiddenOptions.has(i)?"disabled":""}>
+                <button id="option-${i}" class="option ${state.hiddenOptions.has(i)?"hidden-option":""}" style="animation-delay:${i*95}ms" onclick="window.gameMillionaire.answer(${i})" ${state.hiddenOptions.has(i)?"disabled":""}>
                   <span class="letter">${LETTERS[i]}</span><span>${safeText(op)}</span>
                 </button>`).join("")}
             </div>
@@ -344,6 +411,8 @@ function timeoutQuestion(){
   if(state.locked) return;
   if(state.currentJoke){ resolveJoke(-1); return; }
   state.locked = true;
+  playFx("wrong");
+  flashScreen("wrong");
   state.wrong++;
   finishGame(false, "Se acabó el tiempo", "La solicitud quedó vencida. El reloj no perdona, pero el ranking sí guarda la valentía.");
 }
@@ -358,22 +427,27 @@ function answer(index){
   const btn = document.getElementById(`option-${index}`);
   const okBtn = document.getElementById(`option-${q.ok}`);
   if(correct){
+    playFx("correct");
+    flashScreen("correct");
     if(btn) btn.classList.add("correct");
     state.correct++;
     state.money = MONEY[state.current];
     state.coins += Math.max(10, Math.round(state.timeLeft/2)) + (state.current+1)*8;
     state.points = computePoints();
     confetti();
+    scoreBurst(`+$${fmt(state.money)} · +${fmt(state.coins)} monedas`);
     setTimeout(()=>{
       if(state.current >= MONEY.length-1){
         finishGame(true, "¡Ganaste el millón!", "Electroingeniería confirma: esta ronda tuvo buena energía, evidencia y criterio de mejora continua.");
       }else{
-        modal("Respuesta correcta", `<p>${sample(funnyCorrect)}</p><p>Sumas <strong>$${fmt(state.money)}</strong> y quedas con <strong>${fmt(state.points)} puntos</strong>.</p>`, ASSETS.sent, [
+        modal("Respuesta correcta", `<p>${sample(funnyCorrect)}</p><p>Sumas <strong>$${fmt(state.money)}</strong> y quedas con <strong>${fmt(state.points)} puntos</strong>.</p>`, ASSETS.correct, [
           {label:"Continuar",class:"primary",action:()=>{ closeModal(); nextQuestion(); }}
         ]);
       }
     },650);
   }else{
+    playFx("wrong");
+    flashScreen("wrong");
     if(btn) btn.classList.add("wrong");
     if(okBtn) okBtn.classList.add("correct");
     if(state.doubleActive && !state.doubleConsumed){
@@ -421,7 +495,7 @@ function resolveJoke(index){
     const btn = document.getElementById(`option-${index}`);
     if(btn) btn.classList.add("correct");
   }
-  modal("Era una broma", `<p>${sample(jokeMessages)}</p><p>No suma, no descuenta, pero desbloquea risa corporativa.</p>`, ASSETS.laugh, [
+  modal("Era una broma", `<p>${sample(jokeMessages)}</p><p>No suma, no descuenta, pero desbloquea risa corporativa.</p>`, sample([ASSETS.laugh, ASSETS.scream, ASSETS.sent]), [
     {label:"Seguir jugando",class:"primary",action:()=>{ closeModal(); state.currentJoke=null; state.locked=false; renderGame(); }}
   ]);
 }
@@ -587,6 +661,7 @@ function confirmExit(){
 }
 
 window.gameMillionaire = { answer, useLifeline, confirmExit, loadRankingAndShow };
+addClickPulse();
 
 await initFirebase();
 await loadRanking();

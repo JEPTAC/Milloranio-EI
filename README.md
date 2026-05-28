@@ -23,13 +23,15 @@ assets/
 5. Selecciona la rama `main` y carpeta `/root`.
 6. Guarda y abre el enlace que GitHub Pages genere.
 
-## Firestore
+## Firebase / Firestore
 
 La app guarda el ranking en la colección:
 
 ```text
 rankings
 ```
+
+No tienes que crear la colección manualmente. Firestore la crea automáticamente cuando el primer jugador termina una partida y se guarda el puntaje.
 
 Cada partida finalizada guarda:
 
@@ -48,7 +50,7 @@ lifelinesUsed
 createdAt
 ```
 
-El ranking se ordena por `points` de mayor a menor.
+El ranking se ordena por `points` de mayor a menor. Si Firestore bloquea por reglas o conexión, el juego mantiene ranking local temporal en el navegador.
 
 ## Reglas de Firestore
 
@@ -58,31 +60,33 @@ Copia el contenido de `firestore.rules` en Firebase Console:
 Firestore Database > Rules > pegar reglas > Publish
 ```
 
-Estas reglas permiten:
+Estas reglas permiten leer el ranking, crear puntajes validados, bloquear edición/eliminación y cerrar cualquier otra colección.
 
-- Leer ranking públicamente.
-- Crear puntajes con campos validados.
-- Bloquear edición y eliminación de puntajes desde la web.
-- Bloquear cualquier otra colección.
+## Assets incorporados
 
-## Importante
-
-La configuración web de Firebase puede estar visible en el navegador. Eso es normal en apps web de Firebase. La protección real está en las reglas de Firestore.
-
-## Assets
-
-La carpeta incluye assets base generados para que el juego cargue de una vez. Puedes reemplazarlos por los GIFs/logos reales conservando exactamente los mismos nombres:
+Se incluyeron los GIFs, logo y audios entregados por el usuario. Los nombres seguros para GitHub son:
 
 ```text
-assets/logo.png
-assets/logo_calidad.png
-assets/login_dance.gif
-assets/enviado_penguin.gif
-assets/enviado_rabbids.gif
-assets/soporte_trabajando.gif
-assets/documento_proceso.gif
-assets/no_encontrado.gif
-assets/ampliar_espera.gif
-assets/cierre_final.gif
-assets/risa.gif
+assets/logo_dream_team_calidad.png
+assets/gif_dance_class.gif
+assets/gif_sad_pablo.gif
+assets/gif_dance_shock.gif
+assets/gif_scream_help.gif
+assets/gif_processing_cat.gif
+assets/gif_loading_gorilla.gif
+assets/gif_energy_pill.gif
+assets/gif_support_bunny.gif
+assets/gif_penguin_oops.gif
+assets/gif_rabbids_win.gif
+assets/yeah-baby.mp3
+assets/nahhh-baby.mp3
 ```
+
+## Sonidos
+
+- Respuesta correcta: `assets/yeah-baby.mp3`
+- Respuesta incorrecta o tiempo vencido: `assets/nahhh-baby.mp3`
+
+## Nota de seguridad
+
+La configuración web de Firebase puede estar visible en el navegador. Eso es normal en apps web de Firebase. La protección real está en las reglas de Firestore.
