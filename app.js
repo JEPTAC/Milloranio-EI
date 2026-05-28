@@ -15,23 +15,27 @@ const firebaseConfig = {
 const ASSETS = {
   logo: "assets/logo_dream_team_calidad.png",
   logoCalidad: "assets/logo_dream_team_calidad.png",
-  loginDance: "assets/gif_energy_pill.gif",
-  correct: "assets/gif_dance_shock.gif",
   sent: "assets/gif_penguin_oops.gif",
-  rabbids: "assets/gif_penguin_oops.gif",
   working: "assets/gif_support_bunny.gif",
   document: "assets/gif_processing_cat.gif",
-  missing: "assets/gif_penguin_oops.gif",
   extend: "assets/gif_loading_gorilla.gif",
-  done: "assets/gif_energy_pill.gif",
-  laugh: "assets/gif_dance_shock.gif",
   scream: "assets/gif_scream_help.gif",
-  energy: "assets/gif_energy_pill.gif"
+  energy: "assets/gif_energy_pill.gif",
+  shock: "assets/gif_dance_shock.gif"
 };
 
 const SOUNDS = {
   correct: "assets/joder-asi-se-hace.mp3",
   wrong: "assets/nahhh-baby.mp3"
+};
+
+const GIFS = {
+  intro: ["assets/gif_energy_pill.gif", "assets/gif_processing_cat.gif", "assets/gif_support_bunny.gif"],
+  correct: ["assets/gif_dance_shock.gif", "assets/gif_energy_pill.gif", "assets/gif_support_bunny.gif"],
+  wrong: ["assets/gif_penguin_oops.gif", "assets/gif_scream_help.gif", "assets/gif_loading_gorilla.gif"],
+  joke: ["assets/gif_dance_shock.gif", "assets/gif_scream_help.gif", "assets/gif_processing_cat.gif", "assets/gif_penguin_oops.gif"],
+  win: ["assets/gif_energy_pill.gif", "assets/gif_dance_shock.gif", "assets/gif_support_bunny.gif", "assets/gif_processing_cat.gif"],
+  neutral: ["assets/gif_processing_cat.gif", "assets/gif_support_bunny.gif", "assets/gif_loading_gorilla.gif"]
 };
 
 const MONEY = [100,200,500,1000,2000,5000,10000,20000,50000,100000,250000,500000,1000000];
@@ -170,6 +174,21 @@ function prepareQuestion(question){
   const mixed = shuffle(entries);
   return {...question, options:mixed.map(x=>x.opt), ok:mixed.findIndex(x=>x.isOk)};
 }
+function nextGif(group){
+  const list = GIFS[group] || GIFS.neutral;
+  const idx = state.gifIndexes[group] % list.length;
+  state.gifIndexes[group] += 1;
+  return list[idx];
+}
+function nextDistinctPair(group){
+  const first = nextGif(group);
+  let second = nextGif(group);
+  if(second === first){
+    const list = GIFS[group] || GIFS.neutral;
+    second = list[(list.indexOf(first) + 1) % list.length];
+  }
+  return [first, second];
+}
 function currentQuestion(){ return state.currentJoke || state.selected[state.current]; }
 function currentTeam(){ return state.tournament.teams[state.tournament.currentIndex] || null; }
 function computePoints(){ return state.money + state.coins; }
@@ -289,6 +308,7 @@ function buildQuestionSet(){
 }
 
 function renderLogin(){
+  const [introGifA, introGifB] = nextDistinctPair("intro");
   appEl.innerHTML = `
     <section class="login screen-enter">
       <div class="login-card card">
@@ -306,17 +326,12 @@ function renderLogin(){
               <div class="metric"><strong>5</strong><span>comodines especiales</span></div>
               <div class="metric"><strong>∞</strong><span>momentos épicos</span></div>
             </div>
-            <div class="hero-stage">
-              <div class="hero-gif-card">
-                <img class="hero-gif" src="${ASSETS.loginDance}" alt="Animación del juego" loading="eager" onerror="this.src='${ASSETS.energy}'">
+            <div class="hero-stage hero-stage-two">
+              <div class="sticker-card intro-card">
+                <img class="hero-sticker hero-sticker-large" src="${introGifA}" alt="Animación institucional 1" loading="eager" onerror="this.src='${ASSETS.energy}'">
               </div>
-              <div class="hero-sticker-row">
-                <div class="sticker-card">
-                  <img class="hero-sticker" src="${ASSETS.energy}" alt="Buena energía" loading="eager" onerror="this.style.display='none'">
-                </div>
-                <div class="sticker-card">
-                  <img class="hero-sticker" src="${ASSETS.document}" alt="Procesando ideas" loading="eager" onerror="this.style.display='none'">
-                </div>
+              <div class="sticker-card intro-card">
+                <img class="hero-sticker hero-sticker-large" src="${introGifB}" alt="Animación institucional 2" loading="eager" onerror="this.src='${ASSETS.document}'">
               </div>
             </div>
           </div>
@@ -489,7 +504,7 @@ function answer(index, token){
       if(state.current >= MONEY.length-1){
         finishGame(true, "¡Ganaste el millón!", "Electroingeniería confirma: esta ronda tuvo buena energía, evidencia y criterio de mejora continua.");
       }else{
-        modal("Respuesta correcta", `<p>${sample(funnyCorrect)}</p><p>Sumas <strong>$${fmt(state.money)}</strong> y quedas con <strong>${fmt(state.points)} puntos</strong>.</p>`, ASSETS.correct, [
+        modal("Respuesta correcta", `<p>${sample(funnyCorrect)}</p><p>Sumas <strong>$${fmt(state.money)}</strong> y quedas con <strong>${fmt(state.points)} puntos</strong>.</p>`, nextGif("correct"), [
           {label:"Continuar",class:"primary",action:()=>{ closeModal(); nextQuestion(); }}
         ]);
       }
@@ -556,7 +571,7 @@ function resolveJoke(index){
     const btn = document.getElementById(`option-${index}`);
     if(btn) btn.classList.add("correct");
   }
-  modal("Era una broma", `<p>${sample(jokeMessages)}</p><p>No suma, no descuenta, pero desbloquea risa corporativa.</p>`, sample([ASSETS.laugh, ASSETS.scream, ASSETS.sent]), [
+  modal("Era una broma", `<p>${sample(jokeMessages)}</p><p>No suma, no descuenta, pero desbloquea risa corporativa.</p>`, nextGif("joke"), [
     {label:"Seguir jugando",class:"primary",action:()=>{ closeModal(); state.currentJoke=null; state.locked=false; renderGame(); }}
   ]);
 }
@@ -576,10 +591,10 @@ function useLifeline(type){
   if(type === "audience"){
     const votes = makeAudienceVotes(q.ok);
     const html = `<p>La tribuna votó así. Ojo: la tribuna a veces viene con confianza de cierre de mes.</p><div class="audience">${votes.map((v,i)=>`<div class="aud-row"><strong>${LETTERS[i]}</strong><div class="aud-track"><div class="aud-fill" style="width:${v}%"></div></div><span>${v}%</span></div>`).join("")}</div>`;
-    modal("Comodín de la tribuna", html, ASSETS.rabbids, [{label:"Usar pista",class:"primary",action:closeModal}]);
+    modal("Comodín de la tribuna", html, nextGif("neutral"), [{label:"Usar pista",class:"primary",action:closeModal}]);
   }
   if(type === "boss"){
-    modal("Llamada al jefe", `<p><strong>Pista:</strong> ${safeText(q.hint || "Revisa cuál opción deja mejor evidencia y control del proceso.")}</p>`, ASSETS.working, [{label:"Entendido",class:"primary",action:closeModal}]);
+    modal("Llamada al jefe", `<p><strong>Pista:</strong> ${safeText(q.hint || "Revisa cuál opción deja mejor evidencia y control del proceso.")}</p>`, nextGif("neutral"), [{label:"Entendido",class:"primary",action:closeModal}]);
   }
   if(type === "switch"){
     const pool = QUESTION_BANK.filter(item=>item.level===state.current+1 && item.q!==q.q);
@@ -610,7 +625,7 @@ async function finishGame(won, title, msg){
   clearInterval(state.timer);
   state.points=computePoints();
   await saveScore();
-  const img = won ? ASSETS.done : ASSETS.missing;
+  const img = won ? nextGif("win") : nextGif("wrong");
   const tournamentBlock = state.mode === "tournament" ? tournamentHtml() : "";
   const buttons = state.mode === "tournament"
     ? (
@@ -720,7 +735,7 @@ async function setRankingFilter(area){
 }
 async function showRanking(){
   await loadRanking();
-  modal("Ranking del reto", rankingHtml(), ASSETS.done, [{label:"Cerrar",class:"primary",action:closeModal}], true);
+  modal("Ranking del reto", rankingHtml(), nextGif("win"), [{label:"Cerrar",class:"primary",action:closeModal}], true);
 }
 async function loadRankingAndShow(){ await showRanking(); }
 
@@ -842,7 +857,7 @@ function modal(title, html, img, buttons=[], wide=false){
 }
 function closeModal(){ const el=document.querySelector(".overlay"); if(el) el.remove(); }
 function confirmExit(){
-  modal("Salir del reto", `<p>Si sales ahora, el puntaje de esta ronda no se guardará como partida final. Puedes volver al inicio y registrar otro participante.</p>`, ASSETS.extend, [
+  modal("Salir del reto", `<p>Si sales ahora, el puntaje de esta ronda no se guardará como partida final. Puedes volver al inicio y registrar otro participante.</p>`, nextGif("neutral"), [
     {label:"Cancelar",class:"ghost",action:closeModal},
     {label:"Salir",class:"danger",action:()=>{ closeModal(); clearInterval(state.timer); state.mode="single"; state.tournament={id:null,teams:[],currentIndex:0,results:[]}; renderLogin(); }}
   ]);
