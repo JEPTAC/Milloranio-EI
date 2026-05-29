@@ -34,8 +34,14 @@ service cloud.firestore {
       // Permite crear puntajes desde el juego, con validación de campos.
       allow create: if validRankingCreate();
 
-      // Evita que desde el navegador alguien edite o borre puntajes existentes.
-      allow update, delete: if false;
+      // No permite editar puntajes.
+      allow update: if false;
+
+      // Permite reiniciar el ranking desde el botón protegido de la app.
+      // Nota: al estar en una app pública sin login, la protección fuerte real
+      // requeriría Auth/Admin SDK o Cloud Functions. Esto solo habilita el
+      // reinicio operativo del evento.
+      allow delete: if resource.data.game == 'quien_quiere_ser_millonario_electro';
     }
 
     // Todo lo demás queda cerrado.

@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAnalytics, isSupported as analyticsIsSupported } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
-import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, limit, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCb210-ygNI41gZDX6CmBiP7ls2rLpLZ9A",
@@ -368,7 +368,7 @@ function renderLogin(){
           <div class="actions vertical">
             <button class="btn primary" type="submit">Iniciar reto</button>
             <button class="btn ghost" type="button" id="rankingBtn">🏆 Ver ranking</button>
-            <button class="btn ghost cache-btn" type="button" id="clearCacheBtn">🧹 Borrar caché ranking</button>
+            <button class="btn ghost cache-btn" type="button" id="clearCacheBtn">🧹 Reiniciar ranking</button>
             <button class="btn tournament-btn" type="button" id="tournamentBtn">🎬 Modo torneo por equipos</button>
           </div>
           <div class="footer-note">Puntos seguros: $1.000 y $50.000. Las preguntas trampa no suman ni descuentan.</div>
@@ -873,28 +873,67 @@ function modal(title, html, img, buttons=[], wide=false){
 }
 function closeModal(){ const el=document.querySelector(".overlay"); if(el) el.remove(); }
 async function clearRankingCacheWithCode(){
-  const code = prompt("Código para borrar la caché local del ranking:");
+  const code = prompt("Código para reiniciar el ranking completo:");
   if(code === null) return;
   if(code !== CACHE_ADMIN_CODE){
-    toast("Código incorrecto. La caché del ranking no se borró.");
+    toast("Código incorrecto. El ranking no se reinició.");
     return;
   }
+
+  const confirmReset = confirm("Esto reiniciará el ranking visible y eliminará los puntajes guardados en Firestore. ¿Deseas continuar?");
+  if(!confirmReset) return;
+
   try{
+    // 1) Limpieza local del navegador
     localStorage.removeItem("electro_millonario_rankings");
     localStorage.removeItem("electro_millonario_tournament_last");
+
+    // 2) Limpieza real en Firestore
+    let deleted = 0;
+    if(state.firebaseReady && state.db){
+      const snapshot = await getDocs(collection(state.db, "rankings"));
+      let batch = writeBatch(state.db);
+      let count = 0;
+
+      for(const docSnap of snapshot.docs){
+        batch.delete(docSnap.ref);
+        count++;
+        deleted++;
+
+        // Firestore permite máximo 500 operaciones por batch.
+        // Dejamos margen con 450 para evitar errores si luego se agregan operaciones.
+        if(count >= 450){
+          await batch.commit();
+          batch = writeBatch(state.db);
+          count = 0;
+        }
+      }
+
+      if(count > 0){
+        await batch.commit();
+      }
+    }
+
     state.ranking = [];
     state.rankingAll = [];
     state.rankingFilter = "";
+    state.tournament = {id:null, teams:[], currentIndex:0, results:[]};
+
     if("caches" in window){
       const names = await caches.keys();
-      await Promise.all(names.filter(name=>name.includes("millonario") || name.includes("electro")).map(name=>caches.delete(name)));
+      await Promise.all(
+        names
+          .filter(name=>name.includes("millonario") || name.includes("electro"))
+          .map(name=>caches.delete(name))
+      );
     }
+
     await loadRanking();
     renderMiniRanking();
-    toast("Caché local del ranking borrada. Los registros guardados en Firestore no se eliminan.");
+    toast(`Ranking reiniciado correctamente. Registros eliminados: ${deleted}.`);
   }catch(err){
-    console.warn("No se pudo borrar la caché local del ranking.", err);
-    toast("No se pudo borrar la caché local del ranking.");
+    console.warn("No se pudo reiniciar el ranking.", err);
+    toast("No se pudo reiniciar el ranking. Revisa que hayas publicado las Firestore Rules nuevas.");
   }
 }
 
