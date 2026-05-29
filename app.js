@@ -25,9 +25,14 @@ const ASSETS = {
 };
 
 const SOUNDS = {
-  correct: "assets/joder-asi-se-hace.mp3",
-  wrong: "assets/nahhh-baby.mp3"
+  correct: [
+    "assets/asi-se-hace.mp3",
+    "assets/que-buena-respuesta.mp3",
+    "assets/buena-respuesta-un.mp3"
+  ],
+  wrong: ["assets/nahhh-baby.mp3"]
 };
+const CACHE_ADMIN_CODE = "JU4nes1205//";
 
 const GIFS = {
   intro: ["assets/gif_energy_pill.gif", "assets/gif_processing_cat.gif", "assets/gif_support_bunny.gif"],
@@ -157,6 +162,7 @@ const state = {
   rankingFilter:"",
   usedJokes:new Set(),
   gifIndexes:{intro:0,correct:0,wrong:0,joke:0,win:0,neutral:0},
+  soundIndexes:{correct:0,wrong:0},
   questionToken:0,
   lastAnswerAt:0,
   lastLifelineAt:0,
@@ -189,6 +195,13 @@ function nextDistinctPair(group){
     second = list[(list.indexOf(first) + 1) % list.length];
   }
   return [first, second];
+}
+function nextSound(type){
+  const list = Array.isArray(SOUNDS[type]) ? SOUNDS[type] : [SOUNDS[type]];
+  if(!list.length || !list[0]) return "";
+  const idx = state.soundIndexes[type] % list.length;
+  state.soundIndexes[type] += 1;
+  return list[idx];
 }
 function currentQuestion(){ return state.currentJoke || state.selected[state.current]; }
 function currentTeam(){ return state.tournament.teams[state.tournament.currentIndex] || null; }
@@ -224,7 +237,7 @@ function confetti(){
 }
 
 function playFx(type){
-  const src = SOUNDS[type];
+  const src = nextSound(type);
   if(!src) return;
   try{
     const audio = new Audio(src);
@@ -355,6 +368,7 @@ function renderLogin(){
           <div class="actions vertical">
             <button class="btn primary" type="submit">Iniciar reto</button>
             <button class="btn ghost" type="button" id="rankingBtn">🏆 Ver ranking</button>
+            <button class="btn ghost cache-btn" type="button" id="clearCacheBtn">🧹 Borrar caché ranking</button>
             <button class="btn tournament-btn" type="button" id="tournamentBtn">🎬 Modo torneo por equipos</button>
           </div>
           <div class="footer-note">Puntos seguros: $1.000 y $50.000. Las preguntas trampa no suman ni descuentan.</div>
@@ -372,6 +386,7 @@ function renderLogin(){
     startGame();
   });
   document.getElementById("rankingBtn").addEventListener("click", async()=>{ await loadRanking(); showRanking(); });
+  document.getElementById("clearCacheBtn").addEventListener("click", clearRankingCacheWithCode);
   document.getElementById("tournamentBtn").addEventListener("click", showTournamentSetup);
 }
 
@@ -707,7 +722,7 @@ async function loadRanking(){
 
 function rankingHtml(){
   const title = state.rankingFilter ? `Ranking · ${safeText(state.rankingFilter)}` : "Ranking general";
-  const filter = `<div class="ranking-filter-row"><label>Filtrar por proceso</label><select class="ranking-filter" onchange="window.gameMillionaire.setRankingFilter(this.value)"><option value="">Todos los procesos</option>${AREAS.map(a=>`<option value="${safeText(a)}" ${state.rankingFilter===a?"selected":""}>${safeText(a)}</option>`).join("")}</select></div>`;
+  const filter = `<div class="ranking-filter-row"><label>Filtrar por proceso</label><select class="ranking-filter" onchange="window.gameMillionaire.setRankingFilter(this.value)"><option value="">Todos los procesos</option>${AREAS.map(a=>`<option value="${safeText(a)}" ${state.rankingFilter===a?"selected":""}>${safeText(a)}</option>`).join("")}</select><button class="btn small ghost cache-inline-btn" type="button" onclick="window.gameMillionaire.clearRankingCacheWithCode()">🧹 Borrar caché local</button></div>`;
   const rows = state.ranking.length ? state.ranking.map((r,i)=>`
     <div class="rank-row">
       <div class="rank-pos">${i+1}</div>
@@ -857,6 +872,32 @@ function modal(title, html, img, buttons=[], wide=false){
   document.body.appendChild(overlay);
 }
 function closeModal(){ const el=document.querySelector(".overlay"); if(el) el.remove(); }
+async function clearRankingCacheWithCode(){
+  const code = prompt("Código para borrar la caché local del ranking:");
+  if(code === null) return;
+  if(code !== CACHE_ADMIN_CODE){
+    toast("Código incorrecto. La caché del ranking no se borró.");
+    return;
+  }
+  try{
+    localStorage.removeItem("electro_millonario_rankings");
+    localStorage.removeItem("electro_millonario_tournament_last");
+    state.ranking = [];
+    state.rankingAll = [];
+    state.rankingFilter = "";
+    if("caches" in window){
+      const names = await caches.keys();
+      await Promise.all(names.filter(name=>name.includes("millonario") || name.includes("electro")).map(name=>caches.delete(name)));
+    }
+    await loadRanking();
+    renderMiniRanking();
+    toast("Caché local del ranking borrada. Los registros guardados en Firestore no se eliminan.");
+  }catch(err){
+    console.warn("No se pudo borrar la caché local del ranking.", err);
+    toast("No se pudo borrar la caché local del ranking.");
+  }
+}
+
 function confirmExit(){
   modal("Salir del reto", `<p>Si sales ahora, el puntaje de esta ronda no se guardará como partida final. Puedes volver al inicio y registrar otro participante.</p>`, nextGif("neutral"), [
     {label:"Cancelar",class:"ghost",action:closeModal},
@@ -864,7 +905,7 @@ function confirmExit(){
   ]);
 }
 
-window.gameMillionaire = { answer, useLifeline, confirmExit, loadRankingAndShow, setRankingFilter, showTournamentSetup };
+window.gameMillionaire = { answer, useLifeline, confirmExit, loadRankingAndShow, setRankingFilter, showTournamentSetup, clearRankingCacheWithCode };
 addClickPulse();
 
 await initFirebase();

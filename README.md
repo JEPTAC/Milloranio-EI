@@ -90,3 +90,9 @@ assets/nahhh-baby.mp3
 ## Nota de seguridad
 
 La configuración web de Firebase puede estar visible en el navegador. Eso es normal en apps web de Firebase. La protección real está en las reglas de Firestore.
+
+
+## Cambios v7
+- Audio correcto rotativo con tres archivos: `asi-se-hace.mp3`, `que-buena-respuesta.mp3` y `buena-respuesta-un.mp3`.
+- Botón protegido para borrar caché local del ranking. Código: `JU4nes1205//`.
+- El botón borra datos locales del navegador; no elimina documentos existentes en Firestore.

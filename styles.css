@@ -1070,3 +1070,35 @@ img,video,canvas,svg{
   .modal-body{grid-template-columns:120px minmax(0,1fr)}
   .modal img{width:120px;min-height:110px;max-height:120px}
 }
+
+
+/* =========================================================
+   v7 · botón protegido de caché y ajuste táctil
+   ========================================================= */
+.cache-btn, .cache-inline-btn{
+  border-color:rgba(232,92,100,.20)!important;
+  color:#9b2735!important;
+  background:linear-gradient(180deg,#fff,#fff7f8)!important;
+}
+.cache-btn:hover, .cache-inline-btn:hover{
+  box-shadow:0 14px 28px rgba(232,92,100,.10)!important;
+}
+.cache-inline-btn{
+  white-space:nowrap;
+  min-height:40px;
+}
+.ranking-filter-row{
+  display:grid;
+  grid-template-columns:auto minmax(180px,1fr) auto;
+  gap:10px;
+  align-items:center;
+}
+@media (max-width:720px){
+  .ranking-filter-row{
+    grid-template-columns:1fr;
+    align-items:stretch;
+  }
+  .cache-inline-btn{
+    width:100%;
+  }
+}
